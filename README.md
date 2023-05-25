@@ -29,7 +29,7 @@
 | delivery_fee_id      | integer| null: false                    |
 | prefecture_id        | integer| null: false                    |
 | shipping_date_id     | integer| null: false                    |
-| user_id              | references| foreign_key: true, null: false |
+| user                 | references| foreign_key: true, null: false |
 
 ### Association
 - belongs_to :user
@@ -40,8 +40,8 @@
 
 | Column   | Type   | Options                        |
 | -------- | ------ | ------------------------------ |
-| user_id  | references| foreign_key: true, null: false |
-| item_id  | references| foreign_key: true, null: false |
+| user     | references| foreign_key: true, null: false |
+| item     | references| foreign_key: true, null: false |
 
 ### Association
 - belongs_to :user
@@ -59,7 +59,7 @@
 | address         | string | null: false                    |
 | building_name   | string |                                |
 | phone_number    | string | null: false                    |
-| purchase_id     | references| foreign_key: true, null: false |
+| purchase        | references| foreign_key: true, null: false |
 
 ### Association
 - belongs_to :purchase
