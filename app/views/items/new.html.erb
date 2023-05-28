@@ -5,10 +5,9 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with local: true do |f| %>
-
+    <%= form_with model: @item, local: true , url: items_path do |f| %>
     <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
-    <%# render 'shared/error_messages', model: f.object %>
+    <%= render 'shared/error_messages', model: f.object %>
     <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
 
     <%# 商品画像 %>
@@ -139,13 +138,11 @@
     <%# /注意書き %>
     <%# 下部ボタン %>
     <div class="sell-btn-contents">
-     <%= form_with model: @item, local: true do |f| %>
       <%= f.submit "出品する" ,class:"sell-btn" %>
-      <% end %>
       <%=link_to 'もどる', root_path, class:"back-btn" %>
-      <% end %>
     </div>
     <%# /下部ボタン %>
+    <% end %>
   </div>
   
 
