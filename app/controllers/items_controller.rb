@@ -5,6 +5,10 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
+  def index
+    @items = Item.order('created_at DESC')
+  end
+
   def create
     @item = current_user.items.new(item_params)
     if @item.save
