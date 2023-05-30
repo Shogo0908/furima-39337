@@ -23,7 +23,7 @@ RSpec.describe Item, type: :model do
       it 'nameが40文字以上だと保存できない' do
         @item.name = 'a' * 41
         @item.valid?
-        expect(@item.errors.full_messages).to include("Name is too long (maximum is 40 characters)")
+        expect(@item.errors.full_messages).to include('Name is too long (maximum is 40 characters)')
       end
       it 'imageが空だと保存できない' do
         @item.image = nil
@@ -38,7 +38,7 @@ RSpec.describe Item, type: :model do
       it 'descriptionが1000文字以上だと保存できない' do
         @item.description = 'a' * 1001
         @item.valid?
-        expect(@item.errors.full_messages).to include("Description is too long (maximum is 1000 characters)")
+        expect(@item.errors.full_messages).to include('Description is too long (maximum is 1000 characters)')
       end
       it 'category_idが1だと保存できない' do
         @item.category_id = 1
@@ -88,7 +88,7 @@ RSpec.describe Item, type: :model do
       it 'userが紐付いていないと保存できないこと' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
