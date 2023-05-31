@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_item, only: [:edit, :update]
+  before_action :redirect_if_not_owner, only: [:edit, :update]
 
   def new
     @item = Item.new
@@ -36,9 +38,19 @@ class ItemsController < ApplicationController
   end
 
   private
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
   def item_params
     params.require(:item).permit(:name, :price, :description, :category_id, :condition_id, :delivery_fee_id, :prefecture_id,
                                  :shipping_date_id, :image, :user_id)
   end
+
+  def redirect_if_not_owner
+    unless current_user == @item.user
+      redirect_to root_path
+    end
+  end
+  
 end
