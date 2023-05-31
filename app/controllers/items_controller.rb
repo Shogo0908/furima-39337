@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def set_item
     @item = Item.find(params[:id])
   end
@@ -48,9 +49,8 @@ class ItemsController < ApplicationController
   end
 
   def redirect_if_not_owner
-    unless current_user == @item.user
-      redirect_to root_path
-    end
+    return if current_user == @item.user
+
+    redirect_to root_path
   end
-  
 end
