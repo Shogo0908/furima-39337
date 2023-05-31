@@ -26,14 +26,14 @@
     <% if user_signed_in? && current_user.id == @item.user_id %>
      <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
     <p class="or-text">or</p>
-     <%= link_to "削除", item_path(@item), method: :delete, class:"item-destroy" %>
+     <%= link_to "削除", "#", method: :delete, class:"item-destroy" %>
     <% elsif user_signed_in? && current_user.id != @item.user_id %>
      <%= link_to "購入画面に進む", "#" ,class:"item-red-btn"%>
     <% end %>
 
 
     <div class="item-explain-box">
-      <span><%= "商品説明" %></span>
+      <span><%= @item.description %></span>
     </div>
     <table class="detail-table">
       <tbody>
