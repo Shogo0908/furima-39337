@@ -53,13 +53,14 @@ class ItemsController < ApplicationController
 
   def redirect_if_not_owner
     return if current_user == @item.user
+
     redirect_to root_path
   end
 
   def redirect_if_sold_out
     @item = Item.find(params[:id])
-    if @item.purchase.present?
-      redirect_to root_path, alert: 'This item has already been sold out.'
-    end
+    return unless @item.purchase.present?
+
+    redirect_to root_path, alert: 'This item has already been sold out.'
   end
 end

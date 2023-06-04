@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseShipment, type: :model do
-
   before do
     @purchase_shipment = FactoryBot.build(:purchase_shipment)
   end
@@ -24,60 +23,60 @@ RSpec.describe PurchaseShipment, type: :model do
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Postal code can't be blank")
       end
-      
+
       it '郵便番号にはハイフンが必要であること' do
         @purchase_shipment.postal_code = '1234567'
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include('Postal code is invalid')
       end
-      
+
       it '郵便番号が全角数字だと保存できないこと' do
         @purchase_shipment.postal_code = '１２３'
         @purchase_shipment.valid?
-        expect(@purchase_shipment.errors.full_messages).to include("Postal code is invalid")
+        expect(@purchase_shipment.errors.full_messages).to include('Postal code is invalid')
       end
-      
+
       it '都道府県を選択していないと保存できないこと' do
         @purchase_shipment.prefecture_id = '0'
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Prefecture can't be blank")
       end
-      
+
       it '市区町村が空では保存できないこと' do
         @purchase_shipment.city = nil
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("City can't be blank")
       end
-      
+
       it '番地が空では保存できないこと' do
         @purchase_shipment.address = nil
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Address can't be blank")
       end
-      
+
       it '電話番号が空では保存できないこと' do
         @purchase_shipment.phone_number = nil
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Phone number can't be blank")
       end
-      
+
       it '電話番号が12桁以上では保存できないこと' do
         @purchase_shipment.phone_number = '09012345678901'
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include('Phone number is invalid')
       end
-      
+
       it '電話番号が9桁以下では保存できないこと' do
         @purchase_shipment.phone_number = '0901234'
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include('Phone number is invalid')
       end
-      
+
       it 'tokenが空では登録できないこと' do
         @purchase_shipment.token = nil
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Token can't be blank")
       end
-     end
+    end
   end
 end
