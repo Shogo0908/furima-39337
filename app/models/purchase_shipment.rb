@@ -3,11 +3,11 @@ class PurchaseShipment
   attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :building_name, :phone_number, :token
 
   with_options presence: true do
-    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
+    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid" }
     validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
     validates :city
     validates :address
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid.' }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
     validates :token
     validates :user_id
   end
