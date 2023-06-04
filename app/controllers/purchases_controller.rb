@@ -12,7 +12,7 @@ class PurchasesController < ApplicationController
     @purchase_shipment = PurchaseShipment.new(purchase_params) # フォームオブジェクトのインスタンスを生成
 
     if @purchase_shipment.valid? # バリデーションを実行
-      Payjp.api_key = "sk_test_0cc100df8cd68b2a163e87f7"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       charge = Payjp::Charge.create(
         amount: @item.price,            # 商品の値段
         card: purchase_params[:token],    # カードトークン
