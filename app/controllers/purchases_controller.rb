@@ -8,12 +8,26 @@ class PurchasesController < ApplicationController
   end
 
   def create
+    binding.pry
     @item = Item.find(params[:item_id])  # 購入する商品を特定
     @purchase_shipment = PurchaseShipment.new(purchase_params) # フォームオブジェクトのインスタンスを生成
+
     if @purchase_shipment.valid? # バリデーションを実行
-      pay_item # payjpのメソッドを実行
-      @purchase_shipment.save # フォームオブジェクトのsaveメソッドを実行
-      redirect_to root_path # トップページにリダイレクト
+      Payjp.api_key = "sk_test_0cc100df8cd68b2a163e87f7"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+      charge = Payjp::Charge.create(
+        amount: @item.price,            # 商品の値段
+        card: purchase_params[:token],    # カードトークン
+        currency: 'jpy'                 # 通貨の種類（日本円）
+      )
+      if charge.present?
+        ActiveRecord::Base.transaction do
+        @purchase_shipment.save # フォームオブジェクトのsaveメソッドを実行
+
+        end
+        redirect_to root_path # トップページにリダイレクト
+      else
+        render :index # indexアクションのviewを表示
+      end
     else
       render :index # indexアクションのviewを表示
     end
@@ -23,7 +37,7 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_shipment).permit(:postal_code, :prefecture_id, :city, :address, :building_name, :phone_number, :item_id).merge(user_id: current_user.id, token: params[:token])
+    params.require(:purchase_shipment).permit(:postal_code, :prefecture_id, :city, :address, :building_name, :phone_number, :item_id,).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:card_token])
   end
 
   def move_to_root
