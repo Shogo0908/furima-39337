@@ -75,6 +75,12 @@ RSpec.describe PurchaseShipment, type: :model do
         expect(@purchase_shipment.errors.full_messages).to include('Phone number is invalid')
       end
 
+      it '電話番号に半角文字以外が入っていると保存できないこと' do
+        @purchase_shipment.phone_number = '090５５５５５５５５'
+        @purchase_shipment.valid?
+        expect(@purchase_shipment.errors.full_messages).to include('Phone number is invalid')
+      end
+
       it 'tokenが空では登録できないこと' do
         @purchase_shipment.token = nil
         @purchase_shipment.valid?
