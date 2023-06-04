@@ -8,7 +8,6 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    binding.pry
     @item = Item.find(params[:item_id])  # 購入する商品を特定
     @purchase_shipment = PurchaseShipment.new(purchase_params) # フォームオブジェクトのインスタンスを生成
 
