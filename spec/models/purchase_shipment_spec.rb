@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PurchaseShipment, type: :model do
   before do
-    @purchase_shipment = FactoryBot.build(:purchase_shipment)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.build(:item, user_id: @user.id)
+    @item.image.attach(io: File.open('./test_image.png'), filename: 'test_image.png')
+    @purchase_shipment = FactoryBot.build(:purchase_shipment, user_id: @user.id, item_id: @item.id)
   end
 
   describe '商品購入' do
@@ -76,6 +79,18 @@ RSpec.describe PurchaseShipment, type: :model do
         @purchase_shipment.token = nil
         @purchase_shipment.valid?
         expect(@purchase_shipment.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが空では購入できないこと' do
+        @purchase_shipment.user_id = nil
+        @purchase_shipment.valid?
+        expect(@purchase_shipment.errors.full_messages).to include("User can't be blank")
+      end
+      
+      it 'item_idが空では購入できないこと' do
+        @purchase_shipment.item_id = nil
+        @purchase_shipment.valid?
+        expect(@purchase_shipment.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
