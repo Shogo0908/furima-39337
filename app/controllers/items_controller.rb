@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :redirect_if_not_owner, only: [:edit, :update]
+  before_action :redirect_if_sold_out, only: [:edit, :update, :destroy]
 
   def new
     @item = Item.new
@@ -54,5 +55,12 @@ class ItemsController < ApplicationController
     return if current_user == @item.user
 
     redirect_to root_path
+  end
+
+  def redirect_if_sold_out
+    @item = Item.find(params[:id])
+    return unless @item.purchase.present?
+
+    redirect_to root_path, alert: 'This item has already been sold out.'
   end
 end
