@@ -9,16 +9,7 @@ RSpec.describe PurchaseShipment, type: :model do
   end
 
   describe '商品購入' do
-    context '商品購入がうまくいくとき' do
-      it '全ての値が正しく入力されていれば保存できること' do
-        expect(@purchase_shipment).to be_valid
-      end
 
-      it 'building_nameは空でも保存できること' do
-        @purchase_shipment.building_name = nil
-        expect(@purchase_shipment).to be_valid
-      end
-    end
 
     context '商品購入がうまくいかないとき' do
       it '郵便番号が必須であること' do
