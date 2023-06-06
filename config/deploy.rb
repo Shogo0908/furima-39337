@@ -2,7 +2,7 @@
 lock '3.17.3'
 
 # Capistranoのログの表示に利用する
-set :application, 'furima-31677'
+set :application, 'furima-39337'
 
 # どのリポジトリからアプリをpullするかを指定する
 set :repo_url,  'git@github.com:Shogo0908/furima-39337.git'
@@ -15,7 +15,7 @@ set :rbenv_ruby, '2.6.5' #カリキュラム通りに進めた場合、’2.6.5�
 
 # どの公開鍵を利用してデプロイするか
 set :ssh_options, auth_methods: ['publickey'],
-                                  keys: ['~/.ssh/furima-39337.pem.pem'] 
+                                  keys: ['~/.ssh/furima-39337.pem'] 
 
 # プロセス番号を記載したファイルの場所
 set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
