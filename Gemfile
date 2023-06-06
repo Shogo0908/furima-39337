@@ -34,6 +34,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
 
 group :development do
@@ -75,11 +80,3 @@ gem 'payjp'
 gem "aws-sdk-s3", require: false
 
 gem 'date', '3.3.3'
-
-group :development, :production do
-  gem 'capistrano', '~> 3.11'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails', '~> 1.4'
-  gem 'capistrano-rbenv'
-  gem 'capistrano3-unicorn'
-end
