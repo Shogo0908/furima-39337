@@ -78,3 +78,5 @@ gem 'pry-rails'
 gem 'payjp'
 
 gem "aws-sdk-s3", require: false
+
+gem 'date', '3.3.3'
